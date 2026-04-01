@@ -9,17 +9,17 @@ void main() =>
     runApp(DevicePreview(enabled: true, builder: (context) => const MeuAppCafe()));
 
 class MeuAppCafe extends StatelessWidget {
-  const MeuAppCafe({super.key}); // Adicionado const para compatibilidade
+  const MeuAppCafe({super.key}); 
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      locale: DevicePreview.locale(context), // Ajustado para o parâmetro correto
+      locale: DevicePreview.locale(context), 
       builder: DevicePreview.appBuilder,
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
       home: const PaginaHome(),
-    ); // Ponto e vírgula adicionado aqui
+    ); 
   }
 }
 
