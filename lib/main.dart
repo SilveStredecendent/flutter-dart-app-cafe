@@ -1,22 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:device_preview/device_preview.dart'; // Espaço removido aqui
 
-void main() {
-  runApp(const MeuAppCafe());
-}
+//void main() {
+//  runApp(const MeuAppCafe());
+//}
+
+void main() =>
+    runApp(DevicePreview(enabled: true, builder: (context) => const MeuAppCafe()));
 
 class MeuAppCafe extends StatelessWidget {
-  const MeuAppCafe({super.key});
+  const MeuAppCafe({super.key}); // Adicionado const para compatibilidade
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Meu App Café',
-      theme: ThemeData(primarySwatch: Colors.brown),
+      locale: DevicePreview.locale(context), // Ajustado para o parâmetro correto
+      builder: DevicePreview.appBuilder,
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
       home: const PaginaHome(),
-    );
+    ); // Ponto e vírgula adicionado aqui
   }
 }
+
+//class MeuAppCafe extends StatelessWidget {
+//  const MeuAppCafe({super.key});
+
+//  @override
+//  Widget build(BuildContext context) {
+//   return MaterialApp(
+//    debugShowCheckedModeBanner: false,
+//    title: 'Meu App Café',
+//   theme: ThemeData(primarySwatch: Colors.brown),
+//home: const PaginaHome(),
+//);
+// }
+//}
 
 class PaginaHome extends StatefulWidget {
   const PaginaHome({super.key});
@@ -42,8 +61,7 @@ class _PaginaHomeState extends State<PaginaHome> {
         _diarioNotas.add(
           'Café #${_contadorCafes + 1}: ${_controladorTexto.text}',
         );
-        _controladorTexto
-            .clear(); // Corrigido: fora da string e com ponto e vírgula
+        _controladorTexto.clear(); // Corrigido: fora da string e com ponto e vírgula
         _incrementarCafe();
       });
     }
@@ -97,10 +115,15 @@ class _PaginaHomeState extends State<PaginaHome> {
 
             ListView.builder(
               shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
               itemCount: _diarioNotas.length,
               itemBuilder: (context, index) {
-                return Card(child: ListTile(leading: const Icon(Icons.history_edu, color: Colors.brown,),
-              title: Text(_diarioNotas[index]),));
+                return Card(
+                  child: ListTile(
+                    leading: const Icon(Icons.history_edu, color: Colors.brown),
+                    title: Text(_diarioNotas[index]),
+                  ),
+                );
               },
             ),
           ],
